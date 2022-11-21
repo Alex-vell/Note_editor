@@ -1,0 +1,14 @@
+.App {
+  //background-color: rgba(188,164,255,0.75);
+  //background-color: #f6f6f8;
+  background:linear-gradient(rgb(17, 43, 77), rgb(120, 107, 175));
+
+  //background:linear-gradient(rgb(232, 91, 111), rgb(17, 43, 77));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
