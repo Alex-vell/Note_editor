@@ -84,10 +84,16 @@ export const NoteList = observer(() => {
           placeholder="Search to hashtag"
         />
         <div className={s.filterButtons}>
-          <SuperButton onClick={filterNotes} disabled={!filterTitle.length}>
+          <SuperButton
+            className={s.btn}
+            onClick={filterNotes}
+            disabled={!filterTitle.length}
+          >
             filter
           </SuperButton>
-          <SuperButton onClick={filterOff}>all</SuperButton>
+          <SuperButton className={s.btn} onClick={filterOff}>
+            all
+          </SuperButton>
         </div>
       </div>
 

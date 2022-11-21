@@ -3,7 +3,11 @@ import React, {
   ChangeEvent,
   DetailedHTMLProps,
   HTMLAttributes,
-  InputHTMLAttributes, RefObject, useContext, useEffect, useRef,
+  InputHTMLAttributes,
+  RefObject,
+  useContext,
+  useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -11,8 +15,7 @@ import { TagType } from '../../store/types';
 import SuperInputText from '../customInput/SuperInputText';
 
 import styles from './SuperEditableSpan.module.scss';
-import {Context} from "../../index";
-import { toJS } from 'mobx'
+import { Context } from '../../index';
 // import note from "../../store/note";
 
 // default input prop type
@@ -66,21 +69,22 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
       const CURR_SPAN = SPAN.current;
 
       if (editMode) {
-        const arrWords = CURR_TAGS.split(' ')
+        const arrWords = CURR_TAGS.split(' ');
 
         for (let i = 0; i < arrWords.length; i++) {
-            if (CURR_SPAN?.innerHTML.indexOf(arrWords[i]) !== -1) {
-              CURR_SPAN.innerHTML = `${CURR_SPAN.innerHTML
-                  .replace(arrWords[i], `<span style="color: #8fa0d9">${arrWords[i]}</span>`)}`;
-
-            }
+          if (CURR_SPAN?.innerHTML.indexOf(arrWords[i]) !== -1) {
+            CURR_SPAN.innerHTML = `${CURR_SPAN.innerHTML.replace(
+              arrWords[i],
+              `<span style="color: #4755f5">${arrWords[i]}</span>`,
+            )}`;
+          }
         }
       }
     }
     if (SPAN2.current) {
-      SPAN2.current.textContent = title
+      SPAN2.current.textContent = title;
     }
-  }, [editMode, title])
+  }, [editMode, title]);
 
   const onEnterCallback = () => {
     onChangeText(id, title, tag);
@@ -93,19 +97,20 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
 
   const onBlurCallback = (e: React.FocusEvent<HTMLInputElement>): void => {
     if (SPAN.current) {
-      const CURR_SPAN = SPAN.current
+      const CURR_SPAN = SPAN.current;
       if (editMode) {
-        const arrWords = CURR_TAGS.split(' ')
+        const arrWords = CURR_TAGS.split(' ');
 
         for (let i = 0; i < arrWords.length; i++) {
           if (CURR_SPAN?.innerHTML.indexOf(arrWords[i]) !== -1) {
-            // CURR_SPAN.innerHTML = `<b>${CURR_SPAN.innerHTML.replace("#cool", `<span>#cool</span>`)}</b>`;
-            CURR_SPAN.innerHTML = `${CURR_SPAN.innerHTML.replace(arrWords[i], `<span style="color: #363636">${arrWords[i]}</span>`)}`;
+            CURR_SPAN.innerHTML = `${CURR_SPAN.innerHTML.replace(
+              arrWords[i],
+              `<span style="color: #181e5d">${arrWords[i]}</span>`,
+            )}`;
           }
         }
       }
     }
-
 
     onChangeText(id, title, tag);
     setEditMode(false);
@@ -127,8 +132,6 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
     if (currTags) {
       store.setCurrentTags(currTags);
     }
-
-
   };
   const onChangeTextHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.currentTarget.value);
@@ -137,41 +140,41 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
   const spanClassName = `${styles.span} ${className || ''}`;
 
   return (
-      <>
-        {editMode ? (
-            <span
-                ref={SPAN as any}
-                onDoubleClick={onDoubleClickCallBack}
-                className={spanClassName}
-                {...restSpanProps}
-            >
+    <>
+      {editMode ? (
+        <span
+          ref={SPAN as any}
+          onDoubleClick={onDoubleClickCallBack}
+          className={spanClassName}
+          {...restSpanProps}
+        >
           ✎ {children || title}
         </span>
-        ) : (
-            <span
-                ref={SPAN2 as any}
-                onDoubleClick={onDoubleClickCallBack}
-                className={spanClassName}
-                {...restSpanProps}
-            >
+      ) : (
+        <span
+          ref={SPAN2 as any}
+          onDoubleClick={onDoubleClickCallBack}
+          className={spanClassName}
+          {...restSpanProps}
+        >
           ✎ {children || title}
         </span>
-        )}
+      )}
 
-        {
-            editMode && <div className={styles.editField}>
-              <SuperInputText
-                  autoFocus
-                  onBlur={onBlurCallback}
-                  onEnter={onEnterCallback}
-                  onChange={onChangeTextHandler}
-                  defaultValue={title}
-                  isActiveEditMode={editMode}
-                  {...restProps}
-              />
-            </div>
-        }
-      </>
+      {editMode && (
+        <div className={styles.editField}>
+          <SuperInputText
+            autoFocus
+            onBlur={onBlurCallback}
+            onEnter={onEnterCallback}
+            onChange={onChangeTextHandler}
+            defaultValue={title}
+            isActiveEditMode={editMode}
+            {...restProps}
+          />
+        </div>
+      )}
+    </>
 
     // <>
     //   {editMode ? (
