@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Text_note_editor/static/css/main.5aa84bfd.css",
+    "main.js": "/Text_note_editor/static/js/main.0a36fce2.js",
+    "index.html": "/Text_note_editor/index.html",
+    "static/media/backed.svg": "/Text_note_editor/static/media/backed.c3085b1868c2e0849beb50d920b9d834.svg",
+    "main.5aa84bfd.css.map": "/Text_note_editor/static/css/main.5aa84bfd.css.map",
+    "main.0a36fce2.js.map": "/Text_note_editor/static/js/main.0a36fce2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5aa84bfd.css",
+    "static/js/main.0a36fce2.js"
+  ]
+}
