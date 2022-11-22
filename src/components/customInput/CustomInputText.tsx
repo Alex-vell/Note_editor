@@ -2,19 +2,19 @@
 import React, {
   ChangeEvent,
   DetailedHTMLProps,
-  KeyboardEvent, TextareaHTMLAttributes,
+  InputHTMLAttributes,
+  KeyboardEvent,
   useRef,
 } from 'react';
-import s from './CustomTextarea.module.css';
+import s from './CustomInputText.module.css';
 
 // default input prop type
-type DefaultTextareaPropsType = DetailedHTMLProps<
-    TextareaHTMLAttributes<HTMLTextAreaElement>,
-    HTMLTextAreaElement
-    >;
+type DefaultInputPropsType = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
-type SuperInputTextPropsType = DefaultTextareaPropsType & {
-  // и + ещё пропсы которых нет в стандартном инпуте
+type SuperInputTextPropsType = DefaultInputPropsType & {
   onChangeText?: (value: string) => void;
   onEnter?: () => void;
   error?: string;
@@ -22,7 +22,8 @@ type SuperInputTextPropsType = DefaultTextareaPropsType & {
   isActiveEditMode?: boolean;
 };
 
-const CustomTextarea: React.FC<SuperInputTextPropsType> = ({
+const CustomInputText: React.FC<SuperInputTextPropsType> = ({
+  type,
   onChange,
   onChangeText,
   onKeyPress,
@@ -34,31 +35,31 @@ const CustomTextarea: React.FC<SuperInputTextPropsType> = ({
 
   ...restProps
 }) => {
-  const input = useRef<HTMLTextAreaElement>();
+  const input = useRef<HTMLInputElement>();
 
-  const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e);
     onChangeText && onChangeText(e.currentTarget.value);
   };
-  const onKeyPressCallback = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+
+  const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
     onKeyPress && onKeyPress(e);
 
     onEnter && e.key === 'Enter' && onEnter();
   };
 
   const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`;
-  const finalInputClassName = `${s.textarea} ${
-    error ? s.errorInput : s.customTextarea
+  const finalInputClassName = `${s.input} ${
+    error ? s.errorInput : s.superInput
   } ${className}`;
 
   return (
     <>
-      <textarea
+      <input
         id="submittext"
-        rows={5}
         ref={input as any}
+        type={'text'}
         onChange={onChangeCallback}
-        // value={value}
         onKeyPress={onKeyPressCallback}
         className={finalInputClassName}
         {...restProps}
@@ -68,4 +69,4 @@ const CustomTextarea: React.FC<SuperInputTextPropsType> = ({
   );
 };
 
-export default CustomTextarea;
+export default CustomInputText;

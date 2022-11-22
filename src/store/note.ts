@@ -17,12 +17,12 @@ export default class Store {
     makeAutoObservable(this);
   }
 
-  addTags(title: string, noteId: string, tags: TagType): void {
+  addTags(title: string, noteId: string, tag: TagType): void {
     this.noteState.notes = this.noteState.notes.map(nt =>
       nt.id === noteId
         ? {
             ...nt,
-            tags: [tags],
+            tags: [tag],
           }
         : nt,
     );

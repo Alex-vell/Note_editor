@@ -1,3 +1,4 @@
+@import "../../assets/scss/variables";
 
 .default {
     min-width: 100px;
@@ -8,25 +9,27 @@
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: #fff;
-    background-color: #bdbdbd;
+    color: $btnTextColor;
+    background-color: $btnBackgroundColor;
     border: none;
     border-radius: 5px;
+
 }
 .default:active {
-    background-color: #bdbdbd;
-    box-shadow: 0 5px #666;
-    /*transform: translateY(4px);*/
+    background-color: $btnActiveBackgroundColor;
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 .default:disabled {
-    background-color: #eee;
+    background-color: #e8e2e2;
     border-color: #eee;
-    color: #444;
+    opacity: 0.3;
+    color: $btnDisabledTextColor;
     cursor: not-allowed;
 }
 
 .red {
-    /*background: red;*/
     margin: 10px;
     padding: 5px 15px;
     font-size: 15px;

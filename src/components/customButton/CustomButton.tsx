@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-import s from './SuperButton.module.css';
+import s from './CustomButton.module.scss';
 
 // default button prop type
 type DefaultButtonPropsType = DetailedHTMLProps<
@@ -13,7 +13,7 @@ type SuperButtonPropsType = DefaultButtonPropsType & {
   red?: boolean;
 };
 
-const SuperButton: React.FC<SuperButtonPropsType> = ({
+const CustomButton: React.FC<SuperButtonPropsType> = ({
   red,
   className,
   ...restProps
@@ -23,4 +23,4 @@ const SuperButton: React.FC<SuperButtonPropsType> = ({
   return <button className={finalClassName} {...restProps} />;
 };
 
-export default SuperButton;
+export default CustomButton;

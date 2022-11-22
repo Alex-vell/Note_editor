@@ -1,9 +1,9 @@
 import React from 'react';
 
-import SuperButton from '../../components/customButton/SuperButton';
-import SuperEditableSpan from '../../components/editSpan/SuperEditableSpan';
-import { TagType } from '../../store/types';
-import s from '../NoteList/NoteList.module.scss';
+import backed from '../../../assets/svg/backed.svg';
+import { EditableDiv } from '../../../components/EditableDiv/EditableDiv';
+import { TagType } from '../../../store/types';
+import s from '../NoteList.module.scss';
 
 type NoteType = {
   id: string;
@@ -30,20 +30,27 @@ export const Note: React.FC<NoteType> = ({
     <div className={s.note} key={id}>
       <div className={s.fieldContainer}>
         <div className={s.editSpan}>
-          <SuperEditableSpan
+          <EditableDiv
             tag={tag}
             id={id}
             value={title}
             onChangeText={changeNoteCallback}
           />
         </div>
-        <SuperButton onClick={() => removeNoteCallback(id)}>delete</SuperButton>
+
+        <div
+          className={s.removeBtnBlock}
+          role="presentation"
+          onClick={() => removeNoteCallback(id)}
+        >
+          <img src={backed} alt="delete" />
+        </div>
       </div>
       <div className={s.tags}>
         {tags.map(tg => (
-          <div className={s.tag} key={tg.id}>
+          <span className={s.tag} key={tg.id}>
             {tg.title}
-          </div>
+          </span>
         ))}
       </div>
     </div>

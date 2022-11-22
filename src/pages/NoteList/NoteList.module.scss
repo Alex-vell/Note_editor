@@ -10,13 +10,28 @@
     'form note';
   grid-column-gap: 60px;
 
+  @media (min-width: 1001px) {
+    margin-left: 20%;
+  }
+  @media (min-width: 901px) and (max-width: 1000px) {
+    margin-left: 10%;
+  }
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+  @media (max-width: 520px) {
+    width: 90%;
+  }
 
   .fieldBlock {
     grid-area: form;
     background: $block-background;
     border-radius: $block-border-radius;
     width: 20%;
-    //height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -26,6 +41,15 @@
     -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     position: fixed;
+
+    @media (min-width: 521px) and (max-width: 900px) {
+      position: relative;
+      width: 80%;
+    }
+    @media (max-width: 520px) {
+      position: relative;
+      width: 100%;
+    }
 
     input {
       width: 90%;
@@ -38,7 +62,6 @@
       align-items: center;
 
       .btn {
-        //width: 50%;
       }
     }
   }
@@ -51,6 +74,13 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+
+    @media (min-width: 521px) and (max-width: 900px) {
+      width: 80%;
+    }
+    @media (max-width: 520px) {
+      width: 100%;
+    }
 
     .note {
       width: 100%;
@@ -83,6 +113,11 @@
         .active-tag {
           color: $tagTextColor;
         }
+
+        .removeBtnBlock {
+          cursor: pointer;
+          margin-left: 20px;
+        }
       }
 
       .tags {
@@ -92,7 +127,7 @@
         margin: 10px;
 
         .tag {
-          margin-right: 10px;
+          margin-right: 40px;
           font-family: Open Sans, sans-serif;
           color: $tagTextColor;
           font-size: 18px;

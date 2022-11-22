@@ -1,0 +1,12 @@
+@import "../../assets/scss/variables";
+
+.editableElement {
+  padding: 10px;
+  border: 1px solid transparent;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #496f8f;
+    border-radius: $block-border-radius;
+  }
+}

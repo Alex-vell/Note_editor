@@ -1,14 +1,13 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
+import { v1 } from 'uuid';
 
-import SuperButton from '../../components/customButton/SuperButton';
-import SuperInputText from '../../components/customInput/SuperInputText';
-// import { note } from '../../store/note';
 import { Context } from '../../index';
 import { TagType } from '../../store/types';
-import { Note } from '../Note/Note';
 
+import { Note } from './Note/Note';
+import { NoteForm } from './NoteForm/NoteForm';
 import s from './NoteList.module.scss';
 
 export const NoteList = observer(() => {
@@ -22,7 +21,7 @@ export const NoteList = observer(() => {
     store.fetchNote();
   }, [store.noteState]);
 
-  const onChangeFilterHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeFilter = (event: ChangeEvent<HTMLInputElement>): void => {
     setFilterTitle(event.currentTarget.value);
   };
 
@@ -31,11 +30,11 @@ export const NoteList = observer(() => {
     setFilter(true);
   };
 
-  const filterOff = (): void => {
+  const clearFilter = (): void => {
     setFilter(false);
   };
 
-  const addNoteOnChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+  const OnChangeNote = (event: ChangeEvent<HTMLInputElement>): void => {
     setTitle(event.currentTarget.value);
   };
 
@@ -49,14 +48,14 @@ export const NoteList = observer(() => {
     store.removeNote(id);
   };
 
-  const changeNoteCallback = (id: string, noteTitle: string): void => {
+  const changeNote = (id: string, noteTitle: string): void => {
     const firstEl = 0;
     const valueTitle = noteTitle.split(' ');
     const hashTagArr = valueTitle.filter(t => t[firstEl] === '#');
     const hashTag = hashTagArr.join(' ');
 
     const tag: TagType = {
-      id,
+      id: v1(),
       title: hashTag,
       noteId: id,
     };
@@ -68,34 +67,15 @@ export const NoteList = observer(() => {
 
   return (
     <div className={s.noteList}>
-      <div className={s.fieldBlock}>
-        <SuperInputText
-          placeholder="Add note"
-          onChange={addNoteOnChangeHandler}
-          value={title}
-        />
-        <SuperButton onClick={addNote} disabled={!title.length}>
-          add note
-        </SuperButton>
-
-        <SuperInputText
-          onChange={onChangeFilterHandler}
-          value={filterTitle}
-          placeholder="Search to hashtag"
-        />
-        <div className={s.filterButtons}>
-          <SuperButton
-            className={s.btn}
-            onClick={filterNotes}
-            disabled={!filterTitle.length}
-          >
-            filter
-          </SuperButton>
-          <SuperButton className={s.btn} onClick={filterOff}>
-            all
-          </SuperButton>
-        </div>
-      </div>
+      <NoteForm
+        OnChangeNote={OnChangeNote}
+        title={title}
+        addNote={addNote}
+        onChangeFilter={onChangeFilter}
+        filterTitle={filterTitle}
+        filterNotes={filterNotes}
+        clearFilter={clearFilter}
+      />
 
       <div className={s.noteBlock}>
         {!filter &&
@@ -106,7 +86,7 @@ export const NoteList = observer(() => {
               title={el.title}
               tags={el.tags}
               removeNoteCallback={removeNote}
-              changeNoteCallback={changeNoteCallback}
+              changeNoteCallback={changeNote}
             />
           ))}
         {filter &&
@@ -117,7 +97,7 @@ export const NoteList = observer(() => {
               title={el.title}
               tags={el.tags}
               removeNoteCallback={removeNote}
-              changeNoteCallback={changeNoteCallback}
+              changeNoteCallback={changeNote}
             />
           ))}
       </div>
