@@ -16,6 +16,7 @@ import SuperInputText from '../customInput/SuperInputText';
 
 import styles from './SuperEditableSpan.module.scss';
 import { Context } from '../../index';
+import CustomTextarea from "../customTextarea/CustomTextarea";
 // import note from "../../store/note";
 
 // default input prop type
@@ -95,7 +96,7 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
     }
   };
 
-  const onBlurCallback = (e: React.FocusEvent<HTMLInputElement>): void => {
+  const onBlurCallback = (event: any): void => {
     if (SPAN.current) {
       const CURR_SPAN = SPAN.current;
       if (editMode) {
@@ -116,7 +117,7 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
     setEditMode(false);
 
     if (onBlur) {
-      onBlur(e);
+      onBlur(event);
     }
   };
   const onDoubleClickCallBack = (
@@ -133,7 +134,7 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
       store.setCurrentTags(currTags);
     }
   };
-  const onChangeTextHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setTitle(e.currentTarget.value);
   };
 
@@ -162,24 +163,44 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
       )}
 
       {editMode && (
-        <div className={styles.editField}>
-          <SuperInputText
-            autoFocus
-            onBlur={onBlurCallback}
-            onEnter={onEnterCallback}
-            onChange={onChangeTextHandler}
-            defaultValue={title}
-            isActiveEditMode={editMode}
-            {...restProps}
-          />
-        </div>
+          <div className={styles.editField}>
+            <CustomTextarea
+                autoFocus
+                onBlur={onBlurCallback}
+                onEnter={onEnterCallback}
+                onChange={onChangeTextHandler}
+                defaultValue={title}
+                isActiveEditMode={editMode}
+            />
+          </div>
       )}
+
+      {/*<div*/}
+      {/*    style={{ width: '300px', height: '200px' }}*/}
+      {/*    contentEditable*/}
+      {/*    onChange={onChangeTextHandler}*/}
+      {/*    placeholder="Enter text"*/}
+      {/*/>*/}
+
+      {/*{editMode && (*/}
+      {/*  <div className={styles.editField}>*/}
+      {/*    <SuperInputText*/}
+      {/*      autoFocus*/}
+      {/*      onBlur={onBlurCallback}*/}
+      {/*      onEnter={onEnterCallback}*/}
+      {/*      onChange={onChangeTextHandler}*/}
+      {/*      defaultValue={title}*/}
+      {/*      isActiveEditMode={editMode}*/}
+      {/*      {...restProps}*/}
+      {/*    />*/}
+      {/*  </div>*/}
+      {/*)}*/}
     </>
 
     // <>
     //   {editMode ? (
-    //     // <SuperInputText
-    //     <SuperInputText
+    //     // <CustomTextarea
+    //     <CustomTextarea
     //       autoFocus
     //       onBlur={onBlurCallback}
     //       onEnter={onEnterCallback}
