@@ -2,7 +2,7 @@ import React, { FormEvent, useContext, useEffect, useRef, useState } from 'react
 
 import { Context } from '../../index';
 import { TagType } from '../../store/types';
-import { highlightTags, highlightTagsOff } from '../../utils/findTags';
+import { setTagColor } from '../../utils/findTags';
 
 import styles from './EditableDiv.module.scss';
 
@@ -21,16 +21,16 @@ export const EditableDiv: React.FC<EditableDivType> = ({
 }) => {
   const { store } = useContext(Context);
   const DIV = useRef<HTMLDivElement>();
+  const SELECTED_TAG_COLOR = '#303cce';
+  const CURR_TAGS = store.noteState.currentTag;
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(value);
 
-  const CURR_TAGS = store.noteState.currentTag;
-
   useEffect(() => {
     if (DIV.current) {
       if (editMode) {
-        highlightTags(DIV, CURR_TAGS);
+        setTagColor(DIV, CURR_TAGS, SELECTED_TAG_COLOR);
       } else {
         DIV.current.textContent = title;
       }
@@ -38,8 +38,6 @@ export const EditableDiv: React.FC<EditableDivType> = ({
   }, [editMode, title]);
 
   const onBlurCallback = (event: React.FocusEvent<HTMLDivElement>): void => {
-    highlightTagsOff(DIV, CURR_TAGS);
-
     onChangeText(id, event.currentTarget.innerText, tag);
     setEditMode(false);
   };

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { v1 } from 'uuid';
 
@@ -63,6 +64,15 @@ export const NoteList = observer(() => {
     store.addTags(hashTag, id, tag);
     store.changeNote(id, noteTitle);
     store.pushNote();
+
+    const currTags = store.noteState.notes.find(el => el.id === id);
+    if (currTags) {
+      const fromTags = !!currTags.tags.find(el => el.id === tag.id);
+      if (!fromTags) {
+        store.addTags(hashTag, id, tag);
+      }
+      console.log(toJS(fromTags));
+    }
   };
 
   return (
