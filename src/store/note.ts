@@ -64,11 +64,9 @@ export default class Store {
         e.tags.filter(c => c.title.split(' ').find(t => t === currentTag)),
       );
     });
-    const currentNote = this.noteState.notes.filter(c =>
+    this.noteState.currentNotes = this.noteState.notes.filter(c =>
       c.title.split(' ').find(t => t === currentTag),
     );
-
-    this.noteState.currentNotes = currentNote;
     this.pushNote();
   }
 
@@ -85,6 +83,7 @@ export default class Store {
         this.pushAllNotes(notesFromState);
       })
       .catch((err: AxiosError) => {
+        // eslint-disable-next-line no-console
         console.log(err.message);
       });
   }
@@ -96,6 +95,7 @@ export default class Store {
         this.setNote(res.data.notes);
       })
       .catch((err: AxiosError) => {
+        // eslint-disable-next-line no-console
         console.log(err.message);
       });
   }
